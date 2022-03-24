@@ -24,6 +24,11 @@
     "@nestjs/common": "^7.6.15",
     "@nestjs/core": "^7.6.15",
     "@nestjs/platform-express": "^7.6.15",
+    "@nestjs/platform-fastify": "^7.6.12",
+    "@nestjs/graphql": "^10.0.8",
+    "@nestjs/apollo": "^10.0.8",
+    "graphql": "^15.5.3",
+    "apollo-server-fastify": "^3.3.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^6.6.6"
