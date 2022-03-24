@@ -1,10 +1,20 @@
+import {
+  ApolloFederationDriver,
+  ApolloFederationDriverConfig,
+} from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { GraphQLModule } from '@nestjs/graphql';
+import { UsersResolver } from './users.resolver';
+import responseCachePlugin from 'apollo-server-plugin-response-cache';
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    GraphQLModule.forRoot<ApolloFederationDriverConfig>({
+      driver: ApolloFederationDriver,
+      typePaths: ['**/*.graphql'],
+      plugins: [responseCachePlugin()],
+    }),
+  ],
+  providers: [UsersResolver],
 })
 export class AppModule {}
