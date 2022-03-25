@@ -1,3 +1,4 @@
+import { join } from 'path';
 import {
   ApolloFederationDriver,
   ApolloFederationDriverConfig,
@@ -6,13 +7,46 @@ import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { UsersResolver } from './users.resolver';
 import responseCachePlugin from 'apollo-server-plugin-response-cache';
+import {
+  DirectiveLocation,
+  GraphQLBoolean,
+  GraphQLDirective,
+  GraphQLEnumType,
+  GraphQLInt,
+} from 'graphql';
 
 @Module({
   imports: [
     GraphQLModule.forRoot<ApolloFederationDriverConfig>({
       driver: ApolloFederationDriver,
-      typePaths: ['**/*.graphql'],
       plugins: [responseCachePlugin()],
+      autoSchemaFile: join(process.cwd(), 'src/schema.graphql'),
+      buildSchemaOptions: {
+        directives: [
+          new GraphQLDirective({
+            name: 'cacheControl',
+            locations: [
+              DirectiveLocation.FIELD_DEFINITION,
+              DirectiveLocation.OBJECT,
+              DirectiveLocation.INTERFACE,
+              DirectiveLocation.UNION,
+            ],
+            args: {
+              maxAge: { type: GraphQLInt },
+              scope: {
+                type: new GraphQLEnumType({
+                  name: 'CacheControlScope',
+                  values: {
+                    PUBLIC: {},
+                    PRIVATE: {},
+                  },
+                }),
+              },
+              inheritMaxAge: { type: GraphQLBoolean },
+            },
+          }),
+        ],
+      },
     }),
   ],
   providers: [UsersResolver],
