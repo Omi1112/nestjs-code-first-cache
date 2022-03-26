@@ -36,9 +36,49 @@ import {
               scope: {
                 type: new GraphQLEnumType({
                   name: 'CacheControlScope',
+                  astNode: {
+                    kind: 'EnumTypeDefinition',
+                    description: undefined,
+                    name: { kind: 'Name', value: 'CacheControlScope' },
+                    directives: [],
+                    values: [
+                      {
+                        kind: 'EnumValueDefinition',
+                        description: undefined,
+                        name: { kind: 'Name', value: 'PUBLIC' },
+                        directives: [],
+                      },
+                      {
+                        kind: 'EnumValueDefinition',
+                        description: undefined,
+                        name: { kind: 'Name', value: 'PRIVATE' },
+                        directives: [],
+                      },
+                    ],
+                  },
                   values: {
-                    PUBLIC: {},
-                    PRIVATE: {},
+                    PUBLIC: {
+                      astNode: {
+                        kind: 'EnumValueDefinition',
+                        description: undefined,
+                        name: {
+                          kind: 'Name',
+                          value: 'PUBLIC',
+                        },
+                        directives: [],
+                      },
+                    },
+                    PRIVATE: {
+                      astNode: {
+                        kind: 'EnumValueDefinition',
+                        description: undefined,
+                        name: {
+                          kind: 'Name',
+                          value: 'PRIVATE',
+                        },
+                        directives: [],
+                      },
+                    },
                   },
                 }),
               },
